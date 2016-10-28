@@ -1,0 +1,17 @@
+{
+    "name": "vikin/WeChatPay",
+    "description": "WeChatPay in laravel",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "vikin",
+            "email": "vikindev@outlook.com"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Vikin\\WeChatPay\\": "src/"
+        }
+    }
+}

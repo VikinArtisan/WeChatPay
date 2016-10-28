@@ -1,0 +1,44 @@
+.am-titlebar-default .am-titlebar-title:before {
+    content: "";
+    position: absolute;
+    left: 2px;
+    top: 8px;
+    bottom: 8px;
+    border-left: 3px solid #63b504;
+}
+blockquote {
+    margin-left: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    border-left: 3px solid #63b504;
+    font-family: Georgia,"Times New Roman",Times,Kai,"Kaiti SC",KaiTi,BiauKai,FontAwesome,serif;
+    font-size: 0.9em;
+}
+.am-titlebar-nav, .am-titlebar-nav a{
+    font-size: 0.6em;
+    color: #63b504;
+    line-height: 65px;
+}
+.order-title{color: #c00}
+#orderNo{color: red;}
+#orderPrice{color: red;}
+#prompt-text{
+    margin-top: 10px;
+}
+.image{width:150px;  height: 150px;}
+.wx-image{width: 150px}
+.phone-image{width: 160px}
+#pad{display: block;}
+#pc{display: none;}
+@media only screen and (min-width : 641px) {
+    .image{width:220px;  height: 220px;}
+    .wx-image{width: 220px}
+    .phone-image{width: 250px}
+    #pad{display: block;}
+    #pc{display: none;}
+}
+@media only screen and (min-width : 1024px) {
+    #pad{display: none;}
+    #pc{display: block;}
+}
