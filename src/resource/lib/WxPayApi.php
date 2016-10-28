@@ -41,10 +41,10 @@ class WxPayApi
 
         //关联参数
         if ($inputObj->GetTrade_type() == "JSAPI" && !$inputObj->IsOpenidSet()) {
-            throw new WxPayException("统一支付接口中，缺少必填参数openid！trade_type为JSAPI时，openid为必填参数！");
+            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['统一支付接口中，缺少必填参数openid！trade_type为JSAPI时，openid为必填参数！']);
         }
         if ($inputObj->GetTrade_type() == "NATIVE" && !$inputObj->IsProduct_idSet()) {
-            throw new WxPayException("统一支付接口中，缺少必填参数product_id！trade_type为JSAPI时，product_id为必填参数！");
+            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['统一支付接口中，缺少必填参数product_id！trade_type为JSAPI时，product_id为必填参数！']);
         }
 
         //异步通知url未设置，则使用配置文件中的url
@@ -54,8 +54,8 @@ class WxPayApi
 
         $inputObj->SetAppid(config('WeChatConfig.APPID'));//公众账号ID
         $inputObj->SetMch_id(config('WeChatConfig.MCHID'));//商户号
-//        $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip
-        $inputObj->SetSpbill_create_ip("1.1.1.1");
+        $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip
+//        $inputObj->SetSpbill_create_ip("1.1.1.1");
         $inputObj->SetNonce_str(self::getNonceStr());//随机字符串
 
         //签名
@@ -567,6 +567,7 @@ class WxPayApi
         curl_setopt($ch, CURLOPT_POSTFIELDS, $xml);
         //运行curl
         $data = curl_exec($ch);
+        dd($data);
         //返回结果
         if ($data) {
             curl_close($ch);
