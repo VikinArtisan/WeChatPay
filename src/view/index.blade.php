@@ -75,7 +75,7 @@
                 <div style="float:left;padding-top:50px;padding-left:30px;">
                     <div>
                         <div>
-                            <img class="image" style="border:1px solid #ccc;" src="http://www.s.cn/paycenter-wechatqr.html?data=weixin%3A%2F%2Fwxpay%2Fbizpayurl%3Fpr%3DAULfydp">
+                            <img class="image" style="border:1px solid #ccc;" src="{{$qrCode}}">
                         </div>
                         <div id="prompt-text">
                             <img src="{{asset('WeChatPay/img/text.png')}}" alt="微信支付" width="300" class="wx-image">
