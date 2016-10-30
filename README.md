@@ -1,16 +1,16 @@
-#AliPay in laravel5.3
+#WeChat Pay in laravel 5.3
 
 [![License](https://poser.pugx.org/vikin/alidayu/license)](https://packagist.org/packages/vikin/alidayu)
 [![Total Downloads](https://poser.pugx.org/vikin/alidayu/downloads)](https://packagist.org/packages/vikin/alidayu)
 
->Laravel的支付宝支付package
+>Laravel的微信支付package
 
 ##安装
 
 这是一个标准的composer包,你可以在laravel根目录下执行下面的命令来进行安装:
 
 ```bash
-composer require vikin/alidayu
+composer require vikin/wechatpay 1.0
 ```
 或者在你的composer.json文件中添加:
 
