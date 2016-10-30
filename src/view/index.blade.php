@@ -14,8 +14,8 @@
                 <h2 class="am-text-center order-title">您的订单已提交成功，正在等待您的付款！</h2>
                 <blockquote>
                     <div class="am-sans-serif">
-                        您的订单号：<span id="orderNo">2016102721003993</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                        应支付：<span id="orderPrice">￥339.00</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        您的订单号：<span id="orderNo"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                        应支付：<span id="orderPrice">￥</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         支付方式：微信支付 <br><br>
                         <scmall>如果您未及时付款，再次付款时可能会出现商品缺货的情况，因此松骋建议您下单后及时付款。</scmall>
                     </div>
@@ -35,7 +35,7 @@
                 <div style="float:left;padding-top:50px;padding-left:30px;">
                     <div>
                         <div>
-                            <img class="image" style="border:1px solid #ccc;" src="http://www.s.cn/paycenter-wechatqr.html?data=weixin%3A%2F%2Fwxpay%2Fbizpayurl%3Fpr%3DAULfydp">
+                            <img class="image" style="border:1px solid #ccc;" src="{{$QrCode}}">
                         </div>
                         <div id="prompt-text">
                             <img src="{{asset('WeChatPay/img/text.png')}}" alt="微信支付" width="300" class="wx-image">
