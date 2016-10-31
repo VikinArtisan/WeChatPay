@@ -54,9 +54,9 @@ class WeChatPayMain
 
             if ($notifyData['return_code'] == 'SUCCESS' && $notifyData['result_code'] == 'SUCCESS') { //支付成功
 
-                collect($data) . map(function ($value, $key) use (&$notifyData) {
+                foreach ($data as $key => $value) {
                     $notifyData[ $key ] = $value;
-                });
+                }
 
                 try {
                     //支付成功,开启事务,你要干些什么都写这里,例如增加余额的操作什么的
