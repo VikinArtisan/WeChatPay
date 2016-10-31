@@ -31,7 +31,7 @@ class WeChatPayMain
     public function QrCodePay()
     {
         $Native = App::make('Vikin\WeChatPay\Native');
-        $url = App::call([$Native, 'mode_one'], ['input'=>$this->WxPayUnifiedOrder]);
+        $url = App::call([$Native, 'mode_one'], ['input' => $this->WxPayUnifiedOrder]);
 
         return $url;
     }
@@ -40,7 +40,7 @@ class WeChatPayMain
      * 扫码支付回调函数
      * @throws \Exception
      */
-    public function Notify($suCallback, $erCallback)
+    public function Notify($suCallback, $erCallback, $data)
     {
         $notifyData = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : '';
 
@@ -53,19 +53,26 @@ class WeChatPayMain
             $notifyData = json_decode(json_encode(simplexml_load_string($notifyData, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
 
             if ($notifyData['return_code'] == 'SUCCESS' && $notifyData['result_code'] == 'SUCCESS') { //支付成功
+
+                collect($data) . map(function ($value, $key) use (&$notifyData) {
+                    $notifyData[ $key ] = $value;
+                });
+
                 try {
                     //支付成功,开启事务,你要干些什么都写这里,例如增加余额的操作什么的
-                    call_user_func($suCallback,$notifyData);
+                    call_user_func($suCallback, $notifyData);
                 } catch (\Exception $e) {
                     //如果try里面的东西出现问题的话，进行数据库回滚
                     call_user_func($erCallback, $notifyData);
                     throw $e;
                 }
+
                 return "SUCCESS";
             }
         } else {
             //日志记录
             Log::info('微信支付失败:' . json_encode($notifyData));
+
             //支付失败
             return false;
         }
