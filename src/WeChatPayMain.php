@@ -39,7 +39,7 @@ class WeChatPayMain
      * 扫码支付回调函数
      * @throws \Exception
      */
-    public function Notify($suCallback, $suParameter, $erCallback, $erParameter)
+    public function Notify($suCallback, $erCallback)
     {
         $notifyData = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : '';
 
@@ -54,10 +54,10 @@ class WeChatPayMain
             if ($notifyData['return_code'] == 'SUCCESS' && $notifyData['result_code'] == 'SUCCESS') { //支付成功
                 try {
                     //支付成功,开启事务,你要干些什么都写这里,例如增加余额的操作什么的
-                    call_user_func($suCallback,$suParameter);
+                    call_user_func($suCallback,$notifyData);
                 } catch (\Exception $e) {
                     //如果try里面的东西出现问题的话，进行数据库回滚
-                    call_user_func($erCallback, $erParameter);
+                    call_user_func($erCallback, $notifyData);
                     throw $e;
                 }
                 return "SUCCESS";
