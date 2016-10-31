@@ -29,22 +29,22 @@ class WxPayApi
         $url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
         //检测必填参数
         if (!$inputObj->IsOut_trade_noSet()) {
-            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['缺少统一支付接口必填参数out_trade_no！']);
+            throw new WxPayException('缺少统一支付接口必填参数out_trade_no！');
         } else if (!$inputObj->IsBodySet()) {
-            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['缺少统一支付接口必填参数body！']);
+            throw new WxPayException('缺少统一支付接口必填参数body！');
         } else if (!$inputObj->IsTotal_feeSet()) {
-            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['缺少统一支付接口必填参数total_fee！']);
+            throw new WxPayException('缺少统一支付接口必填参数total_fee！');
         } else if (!$inputObj->IsTrade_typeSet()) {
-            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['缺少统一支付接口必填参数trade_type！']);
-//            throw new WxPayException("");
+            throw new WxPayException('缺少统一支付接口必填参数trade_type！');
         }
 
         //关联参数
         if ($inputObj->GetTrade_type() == "JSAPI" && !$inputObj->IsOpenidSet()) {
-            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['统一支付接口中，缺少必填参数openid！trade_type为JSAPI时，openid为必填参数！']);
+            throw new WxPayException('统一支付接口中，缺少必填参数openid！trade_type为JSAPI时，openid为必填参数！');
         }
         if ($inputObj->GetTrade_type() == "NATIVE" && !$inputObj->IsProduct_idSet()) {
-            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['统一支付接口中，缺少必填参数product_id！trade_type为JSAPI时，product_id为必填参数！']);
+            App::make('Vikin\WeChatPay\Resource\Lib\WxPayException', ['']);
+            throw new WxPayException('统一支付接口中，缺少必填参数product_id！trade_type为JSAPI时，product_id为必填参数！');
         }
 
         //异步通知url未设置，则使用配置文件中的url
