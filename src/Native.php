@@ -3,6 +3,7 @@
 namespace Vikin\WeChatPay;
 
 use Illuminate\Support\Facades\App;
+use Vikin\WeChatPay\Resource\Lib\WxPayException;
 
 class Native {
 	public function mode_one ($input)
@@ -20,12 +21,14 @@ class Native {
 //		$WxPayUnifiedOrder->SetTrade_type("NATIVE");    //支付类型(扫码支付)
 //		$WxPayUnifiedOrder->SetProduct_id("123456789"); //商品id
 
-		$NativePay = App::make('Vikin\WeChatPay\Resource\NativePay');
-		$result = App::call([$NativePay, 'GetPayUrl'], ['input'=>$input]);
-		$url = $result["code_url"];
+        $NativePay = App::make('Vikin\WeChatPay\Resource\NativePay');
+        $result = App::call([$NativePay, 'GetPayUrl'], ['input' => $input]);
 
-        return view('WeChatPay.index')->with([
-            'QrCodeUrl' => 'http://paysdk.weixin.qq.com/example/qrcode.php?data=' . urlencode($url),
-        ]);
+        if (isset($result["code_url"])) {
+            $url = $result["code_url"];
+
+            return 'http://paysdk.weixin.qq.com/example/qrcode.php?data=' . urlencode($url);
+        }
+        throw new WxPayException($result['return_msg']);
 	}
 }

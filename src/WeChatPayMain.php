@@ -30,7 +30,9 @@ class WeChatPayMain
     public function QrCodePay()
     {
         $Native = App::make('Vikin\WeChatPay\Native');
-        App::call([$Native, 'mode_one'], ['input'=>$this->WxPayUnifiedOrder]);
+        $url = App::call([$Native, 'mode_one'], ['input'=>$this->WxPayUnifiedOrder]);
+
+        return $url;
     }
 
     /**
