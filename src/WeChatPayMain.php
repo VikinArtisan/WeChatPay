@@ -3,6 +3,7 @@
 namespace Vikin\WeChatPay;
 
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Class WeChatPayMain
@@ -63,7 +64,10 @@ class WeChatPayMain
                 return "SUCCESS";
             }
         } else {
-            return false; //支付失败
+            //日志记录
+            Log::info('微信支付失败:' . json_encode($notifyData));
+            //支付失败
+            return false;
         }
     }
 
