@@ -5,16 +5,6 @@ use Illuminate\Support\Facades\App;
 
 class JsApi {
 
-    //初始化日志
-    public function log ()
-    {
-        $CLogFileHandler = App::make('Vikin\WeChatPay\Resource\Log\CLogFileHandler', [config('WeChatPay.LogPath').date('Y-m-d').'.log']);
-
-        $Log = App::make('Vikin\WeChatPay\Resource\Log\Log');
-
-        App::call([$Log, 'Init'],['handler'=>$CLogFileHandler, 'level'=>15]);
-    }
-
     //打印输出数组信息
     public function printf_info($data)
     {
