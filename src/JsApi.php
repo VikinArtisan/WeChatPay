@@ -1,9 +1,6 @@
 <?php
 namespace Vikin\WeChatPay;
 
-//ini_set('date.timezone','Asia/Shanghai');
-//error_reporting(E_ERROR);
-
 use Illuminate\Support\Facades\App;
 
 class JsApi {

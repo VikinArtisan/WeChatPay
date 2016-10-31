@@ -25,6 +25,15 @@ class WeChatPayMain
     }
 
     /**
+     * @return mixed
+     */
+    public function JsPay ()
+    {
+        $JsApi = App::make('Vikin\WeChatPay\JsApi');
+        return App::call([$JsApi, 'getUserOpenId']);
+    }
+
+    /**
      * 扫码支付
      * @return mixed
      */
