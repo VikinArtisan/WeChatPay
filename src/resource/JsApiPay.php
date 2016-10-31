@@ -98,16 +98,19 @@ class JsApiPay
 		//初始化curl
 		$ch = curl_init();
 		//设置超时
-		curl_setopt($ch, CURLOPT_TIMEOUT, $this->curl_timeout);
+        if(config('WeChatConfig.CURL_TIME_OUT') != '')
+        {
+            curl_setopt($ch, CURLOPT_TIMEOUT, $this->curl_timeout);
+        }
+
 		curl_setopt($ch, CURLOPT_URL, $url);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER,FALSE);
 		curl_setopt($ch, CURLOPT_SSL_VERIFYHOST,FALSE);
 		curl_setopt($ch, CURLOPT_HEADER, FALSE);
 		curl_setopt($ch, CURLOPT_RETURNTRANSFER, TRUE);
-		if(WxPayConfig::CURL_PROXY_HOST != "0.0.0.0" 
-			&& WxPayConfig::CURL_PROXY_PORT != 0){
-			curl_setopt($ch,CURLOPT_PROXY, WxPayConfig::CURL_PROXY_HOST);
-			curl_setopt($ch,CURLOPT_PROXYPORT, WxPayConfig::CURL_PROXY_PORT);
+		if(config('WeChatConfig.CURL_PROXY_HOST') != "0.0.0.0" && config('WeChatConfig.CURL_PROXY_PORT') != 0){
+			curl_setopt($ch,CURLOPT_PROXY, config('WeChatConfig.CURL_PROXY_HOST'));
+			curl_setopt($ch,CURLOPT_PROXYPORT, config('WeChatConfig.CURL_PROXY_PORT'));
 		}
 		//运行curl，结果以jason形式返回
 		$res = curl_exec($ch);
@@ -150,7 +153,7 @@ class JsApiPay
 	{	
 		$getData = $this->data;
 		$data = array();
-		$data["appid"] = WxPayConfig::APPID;
+		$data["appid"] = config('WeChatConfig.APPID');
 		$data["url"] = "http://".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		$time = time();
 		$data["timestamp"] = "$time";
@@ -164,7 +167,7 @@ class JsApiPay
 			"addrSign" => $addrSign,
 			"signType" => "sha1",
 			"scope" => "jsapi_address",
-			"appId" => WxPayConfig::APPID,
+			"appId" => config('WeChatConfig.APPID'),
 			"timeStamp" => $data["timestamp"],
 			"nonceStr" => $data["noncestr"]
 		);
