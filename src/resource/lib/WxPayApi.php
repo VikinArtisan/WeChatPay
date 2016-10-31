@@ -52,11 +52,11 @@ class WxPayApi
             $inputObj->SetNotify_url(config('WeChatPay.NOTIFY_URL'));//异步通知url
         }
 
-        $inputObj->SetAppid(config('WeChatConfig.APPID'));//公众账号ID
-        $inputObj->SetMch_id(config('WeChatConfig.MCHID'));//商户号
-        $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip
-//        $inputObj->SetSpbill_create_ip("1.1.1.1");
-        $inputObj->SetNonce_str(self::getNonceStr());//随机字符串
+        $inputObj->SetAppid(config('WeChatConfig.APPID'));      //公众账号ID
+        $inputObj->SetMch_id(config('WeChatConfig.MCHID'));     //商户号
+        $inputObj->SetSpbill_create_ip($_SERVER['REMOTE_ADDR']);//终端ip(线上环境)
+//        $inputObj->SetSpbill_create_ip("1.1.1.1");            //终端ip(本地测试时使用)
+        $inputObj->SetNonce_str(self::getNonceStr());           //随机字符串
 
         //签名
         $inputObj->SetSign();
