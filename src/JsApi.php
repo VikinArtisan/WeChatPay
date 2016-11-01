@@ -69,9 +69,9 @@ class JsApi
                                 //res.err_msg     支付成功:get_brand_wcpay_request:ok       //取消支付:get_brand_wcpay_request:cancel
                                 
                                 if(res.err_msg === 'get_brand_wcpay_request:ok'){
-                                    self.location='/wx/pay/success';
+                                    self.location = config('WeChatConfig.GZ_SUCCESS');
                                 }else if(res.err_msg === 'get_brand_wcpay_request:cancel'){
-                                    self.location='/wx/pay/cancel';
+                                    self.location = config('WeChatConfig.GZ_CANCEL');
                                 }
                             }
                         );
