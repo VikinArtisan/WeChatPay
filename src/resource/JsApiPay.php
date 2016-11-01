@@ -93,7 +93,7 @@ class JsApiPay
     /**
      *
      * 通过code从工作平台获取openid机器access_token
-     * @param string $code 微信跳转回来带上的code
+     * @param string $code 微信跳转回ƒ来带上的code
      *
      * @return openid
      */

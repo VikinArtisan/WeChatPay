@@ -55,6 +55,34 @@ class JsApi {
 
         //获取共享收货地址js函数参数
         $editAddress = App::call([$JsApiPay, 'GetEditAddressParameters']);
+
+        echo "<script>
+                function jsApiCall()
+                    {
+                        WeixinJSBridge.invoke(
+                            'getBrandWCPayRequest',
+                             $jsApiParameters,
+                            function(res){
+                                WeixinJSBridge.log(res.err_msg);
+                                alert(res.err_code+res.err_desc+res.err_msg);
+                            }
+                        );
+                    }
+                
+                    function callpay()
+                    {
+                        if (typeof WeixinJSBridge == 'undefined'){
+                            if( document.addEventListener ){
+                                document.addEventListener('WeixinJSBridgeReady', jsApiCall, false);
+                            }else if (document.attachEvent){
+                                document.attachEvent('WeixinJSBridgeReady', jsApiCall); 
+                                document.attachEvent('onWeixinJSBridgeReady', jsApiCall);
+                            }
+                        }else{
+                            jsApiCall();
+                        }
+                    }
+              </script>";
     }
 
     //③、在支持成功回调通知中处理成功之后的事宜，见 notify.php
@@ -64,5 +92,4 @@ class JsApi {
      * 2、jsapi支付时需要填入用户openid，WxPay.JsApiPay.php中有获取openid流程 （文档可以参考微信公众平台“网页授权接口”，
      * 参考http://mp.weixin.qq.com/wiki/17/c0f37d5704f0b64713d5d2c37b468d75.html）
      */
-
 }
