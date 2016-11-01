@@ -18,10 +18,12 @@ return [
      * @var string
      */
 
-    'APPID'     => '',
-    'MCHID'     => '',
-    'KEY'       => '',
-    'APPSECRET' => '',
+    'APPID'         => '',
+    'MCHID'         => '',
+    'KEY'           => '',
+    'APPSECRET'     => '',
+    'GZ_SUCCESS'    => '',
+    'GZ_CANCEL'     => '',
     'CURL_TIME_OUT' => '5',
 
     //=======【证书路径设置】=====================================
