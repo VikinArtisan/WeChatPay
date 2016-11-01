@@ -69,9 +69,11 @@ class JsApi
                                 //res.err_msg     支付成功:get_brand_wcpay_request:ok       //取消支付:get_brand_wcpay_request:cancel
                                 
                                 if(res.err_msg === 'get_brand_wcpay_request:ok'){
-                                    self.location = 'http://mp.weixin.qq.com/mp/redirect?url='+config('WeChatConfig.GZ_SUCCESS');
+//                                    location.href = 'http://mp.weixin.qq.com/mp/redirect?url='+config('WeChatConfig.GZ_SUCCESS');
+                                    location.href = 'http://www.kmsc.cc/wx/pay/success';
                                 }else if(res.err_msg === 'get_brand_wcpay_request:cancel'){
-                                    self.location = 'http://mp.weixin.qq.com/mp/redirect?url='+config('WeChatConfig.GZ_CANCEL');
+//                                    self.location = 'http://mp.weixin.qq.com/mp/redirect?url='+config('WeChatConfig.GZ_CANCEL');
+                                    location.href = 'http://www.kmsc.cc/wx/pay/cancel';
                                 }
                             }
                         );
