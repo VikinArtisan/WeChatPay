@@ -18,10 +18,11 @@ return [
      * @var string
      */
 
-    'APPID'     => 'wx426b3015555a46be',
-    'MCHID'     => '1900009851',
-    'KEY'       => '8934e7d15453e97507ef794cf7b0519d',
-    'APPSECRET' => '7813490da6f1265e4901ffb80afaa36f',
+    'APPID'     => '',
+    'MCHID'     => '',
+    'KEY'       => '',
+    'APPSECRET' => '',
+    'CURL_TIME_OUT' => '5',
 
     //=======【证书路径设置】=====================================
 
@@ -58,6 +59,4 @@ return [
      */
 
     'REPORT_LEVENL' => 1,
-
-    'LogPath' => base_path('storage/logs/'),
 ];

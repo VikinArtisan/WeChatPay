@@ -100,7 +100,7 @@ class JsApiPay
 		//设置超时
         if(config('WeChatConfig.CURL_TIME_OUT') != '')
         {
-            curl_setopt($ch, CURLOPT_TIMEOUT, $this->curl_timeout);
+            curl_setopt($ch, CURLOPT_TIMEOUT, config('WeChatConfig.CURL_TIME_OUT'));
         }
 
 		curl_setopt($ch, CURLOPT_URL, $url);
