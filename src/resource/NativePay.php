@@ -12,11 +12,11 @@ use Illuminate\Support\Facades\App;
  */
 class NativePay
 {
-	/**
-	 * 
-	 * 生成扫描支付URL,模式一
-	 * @param BizPayUrlInput $bizUrlInfo
-	 */
+    /**
+     * 生成扫描支付URL
+     * @param $productId
+     * @return string
+     */
 	public function GetPrePayUrl($productId)
 	{
         $WxPayBizPayUrl = App::make('Vikin\WeChatPay\Resource\Lib\WxPayBizPayUrl');

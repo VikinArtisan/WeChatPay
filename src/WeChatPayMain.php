@@ -25,62 +25,6 @@ class WeChatPayMain
     }
 
     /**
-     * @return mixed
-     */
-    public function JsPay ()
-    {
-        $JsApi = App::make('Vikin\WeChatPay\JsApi');
-        return App::call([$JsApi, 'getUserOpenId']);
-    }
-
-    /**
-     * 扫码支付
-     * @return mixed
-     */
-    public function QrCodePay()
-    {
-        $Native = App::make('Vikin\WeChatPay\Native');
-        $url = App::call([$Native, 'mode_one'], ['input'=>$this->WxPayUnifiedOrder]);
-
-        return $url;
-    }
-
-    /**
-     * 扫码支付回调函数
-     * @throws \Exception
-     */
-    public function Notify($suCallback, $erCallback)
-    {
-        $notifyData = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : '';
-
-        if (empty($notifyData)) {
-            $notifyData = file_get_contents('php://input');
-        }
-
-        if ($notifyData != '') {
-            libxml_disable_entity_loader(true);
-            $notifyData = json_decode(json_encode(simplexml_load_string($notifyData, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
-
-            if ($notifyData['return_code'] == 'SUCCESS' && $notifyData['result_code'] == 'SUCCESS') { //支付成功
-                try {
-                    //支付成功,开启事务,你要干些什么都写这里,例如增加余额的操作什么的
-                    call_user_func($suCallback,$notifyData);
-                } catch (\Exception $e) {
-                    //如果try里面的东西出现问题的话，进行数据库回滚
-                    call_user_func($erCallback, $notifyData);
-                    throw $e;
-                }
-                return "SUCCESS";
-            }
-        } else {
-            //日志记录
-            Log::info('微信支付失败:' . json_encode($notifyData));
-            //支付失败
-            return false;
-        }
-    }
-
-    /**
      * 内容
      * @param $body
      */
@@ -167,5 +111,76 @@ class WeChatPayMain
     public function setProductId($productId)
     {
         $this->WxPayUnifiedOrder->SetProduct_id($productId);
+    }
+
+    /**
+     * 公众号支付
+     * @return mixed
+     */
+    public function JsPay()
+    {
+        $JsApi = App::make('Vikin\WeChatPay\JsApi');
+
+        return App::call([$JsApi, 'getUserOpenId']);
+    }
+
+    /**
+     * 扫码支付
+     * @return mixed
+     */
+    public function QrCodePay()
+    {
+        $Native = App::make('Vikin\WeChatPay\Native');
+        $url = App::call([$Native, 'mode_one'], ['input' => $this->WxPayUnifiedOrder]);
+
+        return $url;
+    }
+
+    /**
+     * 扫码支付回调函数
+     * @throws \Exception
+     */
+    public function Notify($suCallback, $erCallback)
+    {
+        $notifyData = isset($GLOBALS['HTTP_RAW_POST_DATA']) ? $GLOBALS['HTTP_RAW_POST_DATA'] : '';
+
+        if (empty($notifyData)) {
+            $notifyData = file_get_contents('php://input');
+        }
+
+        if ($notifyData != '') {
+            libxml_disable_entity_loader(true);
+            $notifyData = json_decode(json_encode(simplexml_load_string($notifyData, 'SimpleXMLElement', LIBXML_NOCDATA)), true);
+
+            if ($notifyData['return_code'] == 'SUCCESS' && $notifyData['result_code'] == 'SUCCESS') { //支付成功
+                try {
+                    //支付成功,开启事务,你要干些什么都写这里,例如增加余额的操作什么的
+                    call_user_func($suCallback, $notifyData);
+                } catch (\Exception $e) {
+                    //如果try里面的东西出现问题的话，进行数据库回滚
+                    call_user_func($erCallback, $notifyData);
+                    throw $e;
+                }
+
+                return "SUCCESS";
+            }
+        } else {
+            //日志记录
+            Log::info('微信支付失败:' . json_encode($notifyData));
+
+            //支付失败
+            return false;
+        }
+    }
+
+    public function orderQuery($transactionId = '', $outTradeNo = '')
+    {
+        if (strlen($transactionId) > 0) {
+            App::make('');
+        }
+
+        if(strlen($outTradeNo) > 0) {
+            App::make();
+        }
     }
 }
