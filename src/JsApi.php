@@ -47,7 +47,7 @@ class JsApi {
         $order = App::call([$WxPayApi, 'unifiedOrder'], ['inputObj'=>$WxPayUnifiedOrder]);
 
         echo '<font color="#f00"><b>统一下单支付单信息</b></font><br/>';
-        printf_info($order);
+        var_dump($order);
 
         $JsApiPay = App::make('Vikin\WeChatPay\Resource\JsApiPay');
         $jsApiParameters = App::call([$JsApiPay, 'GetJsApiParameters'], ['UnifiedOrderResult'=>$order]);
