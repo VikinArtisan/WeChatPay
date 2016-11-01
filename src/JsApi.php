@@ -34,12 +34,12 @@ class JsApi {
         $WxPayUnifiedOrder = App::make('Vikin\WeChatPay\Resource\Lib\WxPayUnifiedOrder');
         $WxPayUnifiedOrder->SetBody("test");
         $WxPayUnifiedOrder->SetAttach("test");
-        $WxPayUnifiedOrder->SetOut_trade_no(WxPayConfig::MCHID.date("YmdHis"));
+        $WxPayUnifiedOrder->SetOut_trade_no(config('WeChatConfig.MCHID').date("YmdHis"));
         $WxPayUnifiedOrder->SetTotal_fee("1");
         $WxPayUnifiedOrder->SetTime_start(date("YmdHis"));
         $WxPayUnifiedOrder->SetTime_expire(date("YmdHis", time() + 600));
         $WxPayUnifiedOrder->SetGoods_tag("test");
-        $WxPayUnifiedOrder->SetNotify_url("http://paysdk.weixin.qq.com/example/notify.php");
+        $WxPayUnifiedOrder->SetNotify_url("http://www.kmsc.cc/weixin/notify/");
         $WxPayUnifiedOrder->SetTrade_type("JSAPI");
         $WxPayUnifiedOrder->SetOpenid($openId);
 
