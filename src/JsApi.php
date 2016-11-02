@@ -44,9 +44,9 @@ class JsApi
                                 //res.err_msg     支付成功:get_brand_wcpay_request:ok       //取消支付:get_brand_wcpay_request:cancel
                                 
                                 if(res.err_msg === 'get_brand_wcpay_request:ok'){
-                                    location.href = config('WeChatConfig.GZ_SUCCESS');
+                                    location.href = '".config('WeChatConfig.GZ_SUCCESS')."';
                                 }else if(res.err_msg === 'get_brand_wcpay_request:cancel'){
-                                    location.href = config('WeChatConfig.GZ_CANCEL');
+                                    location.href = '".config('WeChatConfig.GZ_CANCEL')."';
                                 }
                             }
                         );
