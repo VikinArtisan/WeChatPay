@@ -145,7 +145,7 @@ class WeChatPayMain
         $this->setTradeType("JSAPI");              //支付类型
         $this->SetOpenId($this->getOpenId());      //openId
 
-        return App::call([$JsApi, 'getUserOpenId'], ['orderData' => $this->WxPayUnifiedOrder]);
+        return App::call([$JsApi, 'GenerateOrders'], ['orderData' => $this->WxPayUnifiedOrder]);
     }
 
     /**
