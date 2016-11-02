@@ -5,48 +5,23 @@ use Illuminate\Support\Facades\App;
 
 class JsApi
 {
-
-    //打印输出数组信息
-    public function printf_info($data)
+    //统一下单
+    public function GenerateOrders($orderData)
     {
-        $info = '';
-
-        foreach ($data as $key => $value) {
-            $info .= "<font color='#00ff55;'>$key</font> : $value <br/>";
-        }
-
-        echo $info;
-    }
-
-    //①、获取用户openid
-    public function getUserOpenId()
-    {
-        $JsApiPay = App::make('Vikin\WeChatPay\Resource\JsApiPay');
-        $openId = App::call([$JsApiPay, 'GetOpenid']);
-
-
-        $this->GenerateOrders($openId);
-
-        return $openId;
-    }
-
-    //②、统一下单
-    public function GenerateOrders($openId)
-    {
-        $WxPayUnifiedOrder = App::make('Vikin\WeChatPay\Resource\Lib\WxPayUnifiedOrder');
-        $WxPayUnifiedOrder->SetBody("test");
-        $WxPayUnifiedOrder->SetAttach("test");
-        $WxPayUnifiedOrder->SetOut_trade_no(config('WeChatConfig.MCHID') . date("YmdHis"));
-        $WxPayUnifiedOrder->SetTotal_fee("1");
-        $WxPayUnifiedOrder->SetTime_start(date("YmdHis"));
-        $WxPayUnifiedOrder->SetTime_expire(date("YmdHis", time() + 600));
-        $WxPayUnifiedOrder->SetGoods_tag("test");
-        $WxPayUnifiedOrder->SetNotify_url("http://www.kmsc.cc/weixin/notify/");
-        $WxPayUnifiedOrder->SetTrade_type("JSAPI");
-        $WxPayUnifiedOrder->SetOpenid($openId);
+//        $WxPayUnifiedOrder = App::make('Vikin\WeChatPay\Resource\Lib\WxPayUnifiedOrder');
+//        $WxPayUnifiedOrder->SetBody("test");
+//        $WxPayUnifiedOrder->SetAttach("test");
+//        $WxPayUnifiedOrder->SetOut_trade_no(config('WeChatConfig.MCHID') . date("YmdHis"));
+//        $WxPayUnifiedOrder->SetTotal_fee("1");
+//        $WxPayUnifiedOrder->SetTime_start(date("YmdHis"));
+//        $WxPayUnifiedOrder->SetTime_expire(date("YmdHis", time() + 600));
+//        $WxPayUnifiedOrder->SetGoods_tag("test");
+//        $WxPayUnifiedOrder->SetNotify_url("http://www.kmsc.cc/weixin/notify/");
+//        $WxPayUnifiedOrder->SetTrade_type("JSAPI");
+//        $WxPayUnifiedOrder->SetOpenid($openId);
 
         $WxPayApi = App::make('Vikin\WeChatPay\Resource\Lib\WxPayApi');
-        $order = App::call([$WxPayApi, 'unifiedOrder'], ['inputObj' => $WxPayUnifiedOrder]);
+        $order = App::call([$WxPayApi, 'unifiedOrder'], ['inputObj' => $orderData]);
 
         $JsApiPay = App::make('Vikin\WeChatPay\Resource\JsApiPay');
         $jsApiParameters = App::call([$JsApiPay, 'GetJsApiParameters'], ['UnifiedOrderResult' => $order]);

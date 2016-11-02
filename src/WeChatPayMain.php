@@ -114,6 +114,27 @@ class WeChatPayMain
     }
 
     /**
+     * openId
+     * @param $openId
+     */
+    public function setOpenId ($openId)
+    {
+        $this->WxPayUnifiedOrder->SetOpenid($openId);
+    }
+
+    /**
+     * 获取openId
+     * @return mixed
+     */
+    public function getOpenId ()
+    {
+        $JsApiPay = App::make('Vikin\WeChatPay\Resource\JsApiPay');
+        $openId = App::call([$JsApiPay, 'GetOpenid']);
+
+        return $openId;
+    }
+
+    /**
      * 公众号支付
      * @return mixed
      */
@@ -121,7 +142,10 @@ class WeChatPayMain
     {
         $JsApi = App::make('Vikin\WeChatPay\JsApi');
 
-        return App::call([$JsApi, 'getUserOpenId']);
+        $this->setTradeType("JSAPI");              //支付类型
+        $this->SetOpenId($this->getOpenId());      //openId
+
+        return App::call([$JsApi, 'getUserOpenId'], ['orderData' => $this->WxPayUnifiedOrder]);
     }
 
     /**
@@ -173,6 +197,12 @@ class WeChatPayMain
         }
     }
 
+
+    /**
+     * 订单查询,还在开发中
+     * @param string $transactionId
+     * @param string $outTradeNo
+     */
     public function orderQuery($transactionId = '', $outTradeNo = '')
     {
         if (strlen($transactionId) > 0) {
