@@ -23,6 +23,9 @@ class JsApi
         $WxPayApi = App::make('Vikin\WeChatPay\Resource\Lib\WxPayApi');
         $order = App::call([$WxPayApi, 'unifiedOrder'], ['inputObj' => $orderData]);
 
+        var_dump($order);
+        exit;
+
         $JsApiPay = App::make('Vikin\WeChatPay\Resource\JsApiPay');
         $jsApiParameters = App::call([$JsApiPay, 'GetJsApiParameters'], ['UnifiedOrderResult' => $order]);
 
